@@ -1,9 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Upload Form</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Multi-step Upload & Size Recommendation</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Hello from GitHub Pages!</h1>
+
+  <div class="container">
+
+    <!-- Progress Bar -->
+    <div id="progressBar">
+      <div class="progress-step active" data-step="1">1</div>
+      <div class="progress-line" data-line="1-2"></div>
+      <div class="progress-step" data-step="2">2</div>
+      <div class="progress-line" data-line="2-3"></div>
+      <div class="progress-step" data-step="3">3</div>
+    </div>
+
+    <!-- Step 1: Gender selection -->
+    <section id="step1" class="step active">
+      <h2>What is your gender?</h2>
+      <button class="gender-btn" data-gender="male">Male</button>
+      <button class="gender-btn" data-gender="female">Female</button>
+    </section>
+
+    <!-- Step 2: Select photos -->
+    <section id="step2" class="step">
+      <h2>Select photos you want to upload</h2>
+      <p><em>(Front & Side are required)</em></p>
+      <form id="photoSelectForm">
+        <label><input type="checkbox" id="frontCheck" value="front" required /> 📸 Front View</label><br />
+        <label><input type="checkbox" id="sideCheck" value="side" required /> 🤳 Side View</label><br />
+        <label><input type="checkbox" id="topCheck" value="top" /> 🧠 Top View (optional)</label><br />
+        <label><input type="checkbox" id="backCheck" value="back" /> 📷 Back View (optional)</label><br />
+
+        <button type="button" id="toUploadBtn">Next: Upload Photos</button>
+      </form>
+    </section>
+
+    <!-- Step 3: Upload and height input -->
+    <section id="step3" class="step">
+      <h2>Upload your photos & enter your height</h2>
+
+      <input type="number" id="heightInput" name="height" min="50" max="300" required placeholder="Enter your height (cm)" />
+
+      <!-- Hidden file inputs -->
+      <input type="file" id="frontPhoto" accept="image/*" capture="environment" style="display:none;" />
+      <input type="file" id="sidePhoto" accept="image/*" capture="environment" style="display:none;" />
+      <input type="file" id="topPhoto" accept="image/*" style="display:none;" />
+      <input type="file" id="backPhoto" accept="image/*" style="display:none;" />
+
+      <button type="button" id="uploadSelectedBtn">Upload Selected Photos</button>
+      <button type="submit" id="submitBtn">Submit</button>
+
+      <div id="errorMsg"></div>
+      <div id="sizeResult"></div>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,325 @@
+/* === Smooth Drop from Very Top === */
+@keyframes dropInFromTop {
+  0% {
+    transform: translateY(-200%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.container.animate-drop {
+  animation: dropInFromTop 0.8s ease-out forwards;
+}
+
+/* === Floating Effect (still included) === */
+@keyframes floatUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(15px);
+  }
+}
+
+/* === Slide Transitions for Step Changes === */
+@keyframes slideUpOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+
+@keyframes slideDownIn {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.step.slide-out {
+  animation: slideUpOut 0.5s forwards;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.step.slide-in {
+  animation: slideDownIn 0.5s forwards;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+/* === Global Body and Background === */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: #000;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* === Animated Radial Background === */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 200%;
+  width: 200%;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 0, 150, 0.1) 0%, transparent 60%),
+              radial-gradient(circle at 80% 30%, rgba(0, 200, 255, 0.1) 0%, transparent 60%),
+              radial-gradient(circle at 50% 80%, rgba(0, 255, 100, 0.1) 0%, transparent 60%);
+  animation: moveBackground 30s infinite linear;
+  z-index: -2;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 3px 3px;
+  opacity: 0.06;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes moveBackground {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-10%, -10%) scale(1.05);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+/* === Form Container === */
+.container {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  margin: 40px auto;
+}
+
+/* === Steps === */
+.step {
+  display: none;
+  position: relative;
+  width: 100%;
+}
+
+.step.active {
+  display: block;
+}
+
+h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #fff;
+}
+
+/* === Gender Step === */
+#step1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* === Gender Buttons === */
+.gender-btn {
+  width: 45%;
+  margin: 10px 2.5%;
+  padding: 18px 0;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.gender-btn:hover {
+  background: linear-gradient(135deg, #5a0eb5, #1d5ae3);
+}
+
+/* === Photo Selection === */
+#photoSelectForm label {
+  font-size: 18px;
+  display: block;
+  margin: 15px 0;
+  user-select: none;
+  color: #fff;
+}
+
+#photoSelectForm input[type="checkbox"] {
+  margin-right: 12px;
+  transform: scale(1.4);
+  cursor: pointer;
+}
+
+/* === Buttons (Next, Upload, Submit, Back) === */
+button, .backBtn {
+  margin-top: 15px;
+  padding: 14px 0;
+  font-size: 16px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100%;
+}
+
+button:hover, .backBtn:hover {
+  background: linear-gradient(135deg, #5a0eb5, #1d5ae3);
+}
+
+/* === Height Input === */
+input[type="number"] {
+  font-size: 18px;
+  padding: 12px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+/* === Error and Success === */
+#errorMsg {
+  color: #ff4d4d;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
+#sizeResult {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: rgba(0, 255, 255, 0.1);
+  border-radius: 12px;
+  font-weight: bold;
+  color: #00ffe5;
+  text-align: center;
+}
+
+/* === Progress Bar === */
+#progressBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  gap: 8px;
+}
+
+.progress-step {
+  width: 36px;
+  height: 36px;
+  background: #444;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 36px;
+  font-weight: bold;
+  color: white;
+  opacity: 0.5;
+  transition: background 0.4s, opacity 0.4s;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.progress-step.active {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  opacity: 1;
+  box-shadow: 0 0 10px #6a11cb;
+}
+
+.progress-line {
+  flex-grow: 1;
+  height: 6px;
+  background: #444;
+  border-radius: 4px;
+  opacity: 0.5;
+  transition: background 0.4s, opacity 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-line.active {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  opacity: 1;
+  box-shadow: 0 0 8px #6a11cb;
+}
+
+.progress-line.transitioning::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  animation: lineFill 1s forwards;
+  top: 0;
+  left: 0;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+@keyframes lineFill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* === Responsive === */
+@media (max-width: 480px) {
+  .container {
+    padding: 20px;
+    width: 95%;
+  }
+
+  .gender-btn {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  button {
+    font-size: 15px;
+    padding: 12px 0;
+  }
+}
